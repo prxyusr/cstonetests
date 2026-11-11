@@ -85,27 +85,21 @@
     <header class="border-b border-white/10 bg-brandBlack/90 sticky top-0 z-50 backdrop-blur-md">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
             
-<!-- OLD HEADER LOGO CONTAINER (REMOVE THIS): -->
-<!-- <div class="bg-white px-3 py-1.5 rounded-lg border border-brandPurpleLight/40 shadow-md shadow-brandPurple/20 transition-transform group-hover:scale-[1.02]"> -->
-
-<!-- OLD FOOTER LOGO CONTAINER (REMOVE THIS): -->
-<!-- <div class="bg-white px-2.5 py-1 rounded border border-brandPurpleLight/30"> -->
-
-<!-- NEW TRANSPARENT FOOTER LOGO: -->
-<div class="flex items-center gap-3">
-    <img src="avatar.png.jpg" 
-         alt="Cornerstone Testing Solutions" 
-         class="h-7 w-auto object-contain block mix-blend-screen" />
-</div>
+            <div class="flex items-center gap-3">
+                <img src="avatar.png.jpg" 
+                     alt="Cornerstone Testing Solutions" 
+                     class="h-7 w-auto object-contain block mix-blend-screen" />
+            </div>
 
             <nav class="hidden md:flex space-x-7 text-sm font-semibold text-gray-300">
                 <a href="#about" class="hover:text-brandPurpleLight transition">About</a>
                 <a href="#services" class="hover:text-brandPurpleLight transition">Services</a>
-                <a href="#violations" class="hover:text-brandPurpleLight transition">Clear Violations</a>
+                <a href="#contact" class="hover:text-brandPurpleLight transition">Clear Violations</a>
                 <a href="#contact" class="hover:text-brandPurpleLight transition">Contact Us</a>
             </nav>
 
-            <a href="#contact" class="bg-brandPurple hover:bg-brandPurpleDark text-white px-5 py-2.5 rounded-xl text-sm font-bold transition shadow-lg shadow-brandPurple/30 flex items-center gap-2">
+            <!-- FIXED: Changed href from #contact to tel:9295009310 so it triggers a phone call -->
+            <a href="tel:9295009310" class="bg-brandPurple hover:bg-brandPurpleDark text-white px-5 py-2.5 rounded-xl text-sm font-bold transition shadow-lg shadow-brandPurple/30 flex items-center gap-2">
                 <i class="fa-solid fa-phone-volume text-xs"></i>
                 <span>(929) 500-9310</span>
             </a>
@@ -333,16 +327,12 @@
     <footer class="border-t border-white/10 py-10 mt-16 text-xs text-gray-500 bg-brandBlack">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row justify-between items-center gap-6">
             
-<!-- OLD FOOTER LOGO CONTAINER (REMOVE THIS): -->
-<!-- <div class="bg-white px-2.5 py-1 rounded border border-brandPurpleLight/30"> -->
-
-<!-- NEW TRANSPARENT FOOTER LOGO: -->
-<div class="flex items-center gap-3">
-    <img src="avatar.png.jpg" 
-         alt="Cornerstone Testing Solutions" 
-         class="h-7 w-auto object-contain block mix-blend-screen" />
-    <span>&copy; <span id="year"></span> Cornerstone Testing Solutions LLC. All Rights Reserved.</span>
-</div>
+            <div class="flex items-center gap-3">
+                <img src="avatar.png.jpg" 
+                     alt="Cornerstone Testing Solutions" 
+                     class="h-7 w-auto object-contain block mix-blend-screen" />
+                <span>&copy; <span id="year"></span> Cornerstone Testing Solutions LLC. All Rights Reserved.</span>
+            </div>
 
             <div class="flex gap-6 text-gray-400">
                 <p><i class="fa-solid fa-location-dot text-brandPurpleLight mr-1.5"></i> 82-11 37th Ave. Suite LL19, NYC</p>
