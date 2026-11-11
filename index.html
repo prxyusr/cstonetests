@@ -85,15 +85,19 @@
     <header class="border-b border-white/10 bg-brandBlack/90 sticky top-0 z-50 backdrop-blur-md">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
             
-            <!-- LOGO FETCHED FROM GITHUB REPO -->
-            <a href="#" class="flex items-center gap-3 group">
-                <div class="bg-white px-3 py-1.5 rounded-lg border border-brandPurpleLight/40 shadow-md shadow-brandPurple/20 transition-transform group-hover:scale-[1.02]">
-                    <img src="avatar.png.jpg" 
-                         alt="Cornerstone Testing Solutions" 
-                         class="h-9 w-auto object-contain block"
-                         loading="eager" />
-                </div>
-            </a>
+<!-- OLD HEADER LOGO CONTAINER (REMOVE THIS): -->
+<!-- <div class="bg-white px-3 py-1.5 rounded-lg border border-brandPurpleLight/40 shadow-md shadow-brandPurple/20 transition-transform group-hover:scale-[1.02]"> -->
+
+<!-- OLD FOOTER LOGO CONTAINER (REMOVE THIS): -->
+<!-- <div class="bg-white px-2.5 py-1 rounded border border-brandPurpleLight/30"> -->
+
+<!-- NEW TRANSPARENT FOOTER LOGO: -->
+<div class="flex items-center gap-3">
+    <img src="avatar.png.jpg" 
+         alt="Cornerstone Testing Solutions" 
+         class="h-7 w-auto object-contain block mix-blend-screen" />
+    <span>&copy; <span id="year"></span> Cornerstone Testing Solutions LLC. All Rights Reserved.</span>
+</div>
 
             <nav class="hidden md:flex space-x-7 text-sm font-semibold text-gray-300">
                 <a href="#about" class="hover:text-brandPurpleLight transition">About</a>
