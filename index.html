@@ -77,6 +77,41 @@
             position: relative;
             z-index: 10;
         }
+
+        /* Smooth Tab View Entrance Animation */
+        @keyframes pageEnter {
+            0% {
+                opacity: 0;
+                transform: translateY(18px) scale(0.995);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .tab-page-active {
+            display: block !important;
+            animation: pageEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Navigation Active Link Styling */
+        .nav-btn-active {
+            color: #9D4EDD !important;
+            position: relative;
+        }
+        .nav-btn-active::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 2.5px;
+            background-color: #9D4EDD;
+            border-radius: 9999px;
+            box-shadow: 0 0 8px rgba(157, 78, 221, 0.8);
+        }
     </style>
 </head>
 <body class="bg-glow selection:bg-brandPurple selection:text-white antialiased min-h-screen">
@@ -85,20 +120,20 @@
     <header class="border-b border-white/10 bg-brandBlack/90 sticky top-0 z-50 backdrop-blur-md">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
             
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="switchPage('home')">
                 <img src="avatar.png.jpg" 
                      alt="Cornerstone Testing Solutions" 
                      class="h-7 w-auto object-contain block mix-blend-screen" />
             </div>
 
+            <!-- Navigation Links -->
             <nav class="hidden md:flex space-x-7 text-sm font-semibold text-gray-300">
-                <a href="#about" class="hover:text-brandPurpleLight transition">About</a>
-                <a href="#services" class="hover:text-brandPurpleLight transition">Services</a>
-                <a href="#contact" class="hover:text-brandPurpleLight transition">Clear Violations</a>
-                <a href="#contact" class="hover:text-brandPurpleLight transition">Contact Us</a>
+                <button id="nav-home" onclick="switchPage('home')" class="nav-btn-active hover:text-brandPurpleLight transition py-1">About</button>
+                <button id="nav-services" onclick="switchPage('services')" class="hover:text-brandPurpleLight transition py-1">Services</button>
+                <button id="nav-resources" onclick="switchPage('resources')" class="hover:text-brandPurpleLight transition py-1">Resources</button>
+                <button id="nav-contact" onclick="goToContact()" class="hover:text-brandPurpleLight transition py-1">Contact Us</button>
             </nav>
 
-            <!-- FIXED: Changed href from #contact to tel:9295009310 so it triggers a phone call -->
             <a href="tel:9295009310" class="bg-brandPurple hover:bg-brandPurpleDark text-white px-5 py-2.5 rounded-xl text-sm font-bold transition shadow-lg shadow-brandPurple/30 flex items-center gap-2">
                 <i class="fa-solid fa-phone-volume text-xs"></i>
                 <span>(929) 500-9310</span>
@@ -106,162 +141,347 @@
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto px-4 sm:px-6 py-12 space-y-24">
+    <!-- MAIN VIEW CONTAINER -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 pt-6 pb-12 space-y-16">
 
-        <!-- 1. HERO SECTION -->
-        <section id="about" class="reveal-section bg-brandCard/90 backdrop-blur-md border border-white/10 rounded-3xl p-8 sm:p-12 shadow-2xl relative overflow-hidden">
-            <div class="max-w-3xl space-y-6">
-                
-                <div class="inline-flex items-center space-x-2 bg-brandPurple/20 border border-brandPurpleLight/40 text-brandPurpleLight px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
-                    <span class="w-2 h-2 rounded-full bg-brandPurpleLight animate-pulse"></span>
-                    <span>NYC Certified Lead Inspectors</span>
+        <!-- ================= PAGE 1: HOME ================= -->
+        <div id="page-home" class="space-y-24 tab-page-active">
+
+            <!-- 1. HERO SECTION -->
+            <section id="about" class="reveal-section bg-brandCard/90 backdrop-blur-md border border-white/10 rounded-3xl p-8 sm:p-12 shadow-2xl relative overflow-hidden">
+                <div class="max-w-3xl space-y-6">
+                    
+                    <div class="inline-flex items-center space-x-2 bg-brandPurple/20 border border-brandPurpleLight/40 text-brandPurpleLight px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
+                        <span class="w-2 h-2 rounded-full bg-brandPurpleLight animate-pulse"></span>
+                        <span>NYC Certified Lead Inspectors</span>
+                    </div>
+
+                    <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
+                        A Tested Stone for a Sure Foundation.
+                    </h1>
+
+                    <div class="bg-brandBlack/60 border border-white/10 rounded-2xl p-5 sm:p-6 text-gray-300 text-sm sm:text-base leading-relaxed space-y-2">
+                        <p class="font-semibold text-white">NYC Environmental Inspection & Violation Removal</p>
+                        <p class="text-gray-400 text-xs sm:text-sm">
+                            We provide fast, EPA-certified lead paint testing, mold assessments, and asbestos inspections for NYC property owners. Keep your buildings compliant, your records organized, and your tenants safe.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <button onclick="goToContact()" class="bg-brandPurple hover:bg-brandPurpleDark text-white px-6 py-3.5 rounded-xl font-bold text-sm transition shadow-xl shadow-brandPurple/25">
+                            Clear a Violation
+                        </button>
+                        <button onclick="switchPage('services')" class="bg-white/5 hover:bg-white/10 border border-white/15 text-white px-6 py-3.5 rounded-xl font-bold text-sm transition">
+                            Explore Services
+                        </button>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- 2. TRIPLE PHOTO SHOWCASE -->
+            <section id="showcase" class="reveal-section space-y-8">
+                <div class="text-center max-w-2xl mx-auto space-y-2">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white">NYC Compliance News & Legal Updates</h2>
+                    <p class="text-xs sm:text-sm text-gray-400">Certified testing and environmental inspections across all five boroughs.</p>
                 </div>
 
-                <!-- DIRECT TO THE POINT STATEMENT -->
-                <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
-                    A Tested Stone for a Sure Foundation.
-                </h1>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">
+                    
+                    <!-- CARD 1: LEAD -->
+                    <div class="offset-card-wrapper">
+                        <div class="offset-card-bg"></div>
+                        <div class="offset-card-content bg-brandCard border border-white/15 rounded-2xl p-6 space-y-4 flex flex-col justify-between h-full">
+                            <div class="space-y-3">
+                                <div class="h-44 rounded-xl overflow-hidden bg-brandBlack/80 relative">
+                                    <img src="https://images.unsplash.com/photo-1584467735871-8e85353a8413?auto=format&fit=crop&w=600&q=80" 
+                                         alt="Lead Paint Inspection" 
+                                         class="w-full h-full object-cover opacity-90 hover:scale-105 transition duration-500" />
+                                    <span class="absolute top-3 left-3 bg-brandPurple text-white text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-md">Lead Services</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-white">EPA Certified Lead Inspection</h3>
+                                <p class="text-xs text-gray-400 leading-relaxed">Fast XRF lead paint testing, risk assessments, and Local Law 1 compliance clearance for residential and multi-family units.</p>
+                            </div>
+                            <button onclick="switchPage('services')" class="inline-flex items-center text-xs font-bold text-brandPurpleLight hover:text-white transition pt-2 text-left">
+                                <span>Schedule Lead Test</span> <i class="fa-solid fa-arrow-right ml-2 text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
 
-                <!-- SMALLER DESCRIPTIVE TEXTBOX -->
-                <div class="bg-brandBlack/60 border border-white/10 rounded-2xl p-5 sm:p-6 text-gray-300 text-sm sm:text-base leading-relaxed space-y-2">
-                    <p class="font-semibold text-white">NYC Environmental Inspection & Violation Removal</p>
-                    <p class="text-gray-400 text-xs sm:text-sm">
-                        We provide fast, EPA-certified lead paint testing, mold assessments, and asbestos inspections for NYC property owners. Keep your buildings compliant, your records organized, and your tenants safe.
+                    <!-- CARD 2: MOLD -->
+                    <div class="offset-card-wrapper">
+                        <div class="offset-card-bg"></div>
+                        <div class="offset-card-content bg-brandCard border border-white/15 rounded-2xl p-6 space-y-4 flex flex-col justify-between h-full">
+                            <div class="space-y-3">
+                                <div class="h-44 rounded-xl overflow-hidden bg-brandBlack/80 relative">
+                                    <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=600&q=80" 
+                                         alt="Mold Assessment" 
+                                         class="w-full h-full object-cover opacity-90 hover:scale-105 transition duration-500" />
+                                    <span class="absolute top-3 left-3 bg-brandPurple text-white text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-md">Mold Services</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-white">Mold Assessment & Air Quality</h3>
+                                <p class="text-xs text-gray-400 leading-relaxed">Comprehensive moisture mapping, indoor air sampling, and independent mold remediation protocol development.</p>
+                            </div>
+                            <button onclick="switchPage('services')" class="inline-flex items-center text-xs font-bold text-brandPurpleLight hover:text-white transition pt-2 text-left">
+                                <span>Request Mold Assessment</span> <i class="fa-solid fa-arrow-right ml-2 text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- CARD 3: ASBESTOS -->
+                    <div class="offset-card-wrapper">
+                        <div class="offset-card-bg"></div>
+                        <div class="offset-card-content bg-brandCard border border-white/15 rounded-2xl p-6 space-y-4 flex flex-col justify-between h-full">
+                            <div class="space-y-3">
+                                <div class="h-44 rounded-xl overflow-hidden bg-brandBlack/80 relative">
+                                    <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=600&q=80" 
+                                         alt="Asbestos Inspection" 
+                                         class="w-full h-full object-cover opacity-90 hover:scale-105 transition duration-500" />
+                                    <span class="absolute top-3 left-3 bg-brandPurple text-white text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-md">Asbestos Services</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-white">Asbestos Surveys & Clearance</h3>
+                                <p class="text-xs text-gray-400 leading-relaxed">ACP-5 asbestos surveys, pre-demolition/renovation testing, and official air monitoring for NYC building permits.</p>
+                            </div>
+                            <button onclick="switchPage('services')" class="inline-flex items-center text-xs font-bold text-brandPurpleLight hover:text-white transition pt-2 text-left">
+                                <span>Book Asbestos Survey</span> <i class="fa-solid fa-arrow-right ml-2 text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- 3. SERVICES OVERVIEW GRID -->
+            <section id="services-grid" class="reveal-section space-y-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-4">
+                    <div>
+                        <h2 class="text-2xl font-bold text-white flex items-center">
+                            <span class="w-2.5 h-6 bg-brandPurple rounded-full mr-3"></span> What We Can Do For You
+                        </h2>
+                        <p class="text-xs text-gray-400 mt-1">Full spectrum environmental inspection and regulatory management.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                    <div onclick="switchPage('services')" class="cursor-pointer bg-brandCard/90 border border-white/10 rounded-2xl p-5 space-y-2.5 hover:border-brandPurpleLight/50 transition transform hover:-translate-y-1">
+                        <div class="w-10 h-10 rounded-xl bg-brandPurple/20 text-brandPurpleLight flex items-center justify-center font-bold text-lg">
+                            <i class="fa-solid fa-flask"></i>
+                        </div>
+                        <h3 class="font-bold text-white text-base">Testing</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed">Independent lab analysis for lead, mold, and asbestos with fast turnaround.</p>
+                    </div>
+
+                    <div onclick="switchPage('services')" class="cursor-pointer bg-brandCard/90 border border-white/10 rounded-2xl p-5 space-y-2.5 hover:border-brandPurpleLight/50 transition transform hover:-translate-y-1">
+                        <div class="w-10 h-10 rounded-xl bg-brandPurple/20 text-brandPurpleLight flex items-center justify-center font-bold text-lg">
+                            <i class="fa-solid fa-clipboard-check"></i>
+                        </div>
+                        <h3 class="font-bold text-white text-base">Advising</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed">Strategic NYC compliance consulting to minimize liability and property risks.</p>
+                    </div>
+
+                    <div onclick="switchPage('services')" class="cursor-pointer bg-brandCard/90 border border-white/10 rounded-2xl p-5 space-y-2.5 hover:border-brandPurpleLight/50 transition transform hover:-translate-y-1">
+                        <div class="w-10 h-10 rounded-xl bg-brandPurple/20 text-brandPurpleLight flex items-center justify-center font-bold text-lg">
+                            <i class="fa-solid fa-magnifying-glass font-bold"></i>
+                        </div>
+                        <h3 class="font-bold text-white text-base">Inspection</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed">Onsite physical surveys, XRF analyzer sweeps, and certified field reports.</p>
+                    </div>
+
+                    <div onclick="switchPage('services')" class="cursor-pointer bg-brandCard/90 border border-white/10 rounded-2xl p-5 space-y-2.5 hover:border-brandPurpleLight/50 transition transform hover:-translate-y-1">
+                        <div class="w-10 h-10 rounded-xl bg-brandPurple/20 text-brandPurpleLight flex items-center justify-center font-bold text-lg">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3 class="font-bold text-white text-base">Abatement Support</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed">Turnkey remediation management via licensed partners for violation sign-offs.</p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+
+        <!-- ================= PAGE 2: SERVICES (Lead, Mold, Asbestos detailed) ================= -->
+        <div id="page-services" class="space-y-8 hidden">
+            <section class="bg-brandCard/95 backdrop-blur-md border border-white/10 rounded-3xl p-8 sm:p-12 shadow-2xl relative overflow-hidden space-y-4">
+                <div class="inline-flex items-center space-x-2 bg-brandPurple/20 border border-brandPurpleLight/40 text-brandPurpleLight px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
+                    <span class="w-2 h-2 rounded-full bg-brandPurpleLight animate-pulse"></span>
+                    <span>Comprehensive Environmental Testing</span>
+                </div>
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Our Core Services: Lead, Mold & Asbestos</h1>
+                <p class="text-gray-300 text-sm sm:text-base leading-relaxed max-w-3xl">
+                    We deliver specialized, certified inspections and testing solutions across all five boroughs of New York City, ensuring complete safety compliance for property owners, managers, and tenants.
+                </p>
+            </section>
+
+            <!-- 3 Detailed Service Sections (Lead, Mold, Asbestos) -->
+            <div class="space-y-10">
+                
+                <!-- 1. LEAD SERVICES -->
+                <div class="bg-brandCard/90 border border-white/10 rounded-3xl p-8 space-y-6">
+                    <div class="flex items-center gap-4 border-b border-white/10 pb-4">
+                        <div class="w-12 h-12 rounded-2xl bg-brandPurple/20 text-brandPurpleLight flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-white">Lead Paint Inspection & Local Law 1 Compliance</h2>
+                            <p class="text-xs text-gray-400">EPA Certified XRF Testing & Risk Assessments</p>
+                        </div>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                        Under NYC Local Law 1, landlords and property managers must ensure apartments in multiple dwellings where a child under six resides are free of lead-based paint hazards. Our certified inspectors use advanced X-ray fluorescence (XRF) analyzers to instantly and accurately detect lead paint layers without destructive sampling.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                        <div class="bg-brandBlack/60 border border-white/10 rounded-2xl p-4 space-y-2">
+                            <h3 class="font-bold text-white text-sm">XRF Testing</h3>
+                            <p class="text-xs text-gray-400">Non-destructive, instant quantitative analysis of painted surfaces across units.</p>
+                        </div>
+                        <div class="bg-brandBlack/60 border border-white/10 rounded-2xl p-4 space-y-2">
+                            <h3 class="font-bold text-white text-sm">Risk Assessments</h3>
+                            <p class="text-xs text-gray-400">Detailed dust wipe sampling, soil testing, and visual degradation reports.</p>
+                        </div>
+                        <div class="bg-brandBlack/60 border border-white/10 rounded-2xl p-4 space-y-2">
+                            <h3 class="font-bold text-white text-sm">Violation Clearances</h3>
+                            <p class="text-xs text-gray-400">Official documentation and filing support to dismiss HPD or DHCR lead orders.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. MOLD SERVICES -->
+                <div class="bg-brandCard/90 border border-white/10 rounded-3xl p-8 space-y-6">
+                    <div class="flex items-center gap-4 border-b border-white/10 pb-4">
+                        <div class="w-12 h-12 rounded-2xl bg-brandPurple/20 text-brandPurpleLight flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-cloud-rain"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-white">Mold Assessment & Indoor Air Quality</h2>
+                            <p class="text-xs text-gray-400">Moisture Mapping & Remediation Protocols</p>
+                        </div>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                        Indoor mold growth poses severe health risks and triggers property violations. Our licensed mold assessors conduct rigorous moisture mapping, thermal imaging, and indoor air sampling to identify hidden moisture sources and airborne spore concentrations.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                        <div class="bg-brandBlack/60 border border-white/10 rounded-2xl p-4 space-y-2">
+                            <h3 class="font-bold text-white text-sm">Air & Surface Sampling</h3>
+                            <p class="text-xs text-gray-400">Laboratory-analyzed spore traps and tape lifts to identify specific mold species.</p>
+                        </div>
+                        <div class="bg-brandBlack/60 border border-white/10 rounded-2xl p-4 space-y-2">
+                            <h3 class="font-bold text-white text-sm">Thermal Imaging</h3>
+                            <p class="text-xs text-gray-400">Advanced moisture meters and infrared cameras to locate hidden water leaks.</p>
+                        </div>
+                        <div class="bg-brandBlack/60 border border-white/10 rounded-2xl p-4 space-y-2">
+                            <h3 class="font-bold text-white text-sm">Remediation Protocols</h3>
+                            <p class="text-xs text-gray-400">Custom, independent step-by-step cleaning and containment specifications for contractors.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. ASBESTOS SERVICES -->
+                <div class="bg-brandCard/90 border border-white/10 rounded-3xl p-8 space-y-6">
+                    <div class="flex items-center gap-4 border-b border-white/10 pb-4">
+                        <div class="w-12 h-12 rounded-2xl bg-brandPurple/20 text-brandPurpleLight flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-layer-group"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-white">Asbestos Surveys & Compliance Clearance</h2>
+                            <p class="text-xs text-gray-400">ACP-5 Forms & Demolition/Renovation Testing</p>
+                        </div>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                        The Clean Air Act, TSCA, and OSHA standards require rigorous asbestos controls. To protect occupants and align with NYC DEP guidelines, we provide unbiased environmental reporting, bulk material sampling, and coordination with licensed abatement partners.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                        <div class="bg-brandBlack/60 border border-white/10 rounded-2xl p-4 space-y-2">
+                            <h3 class="font-bold text-white text-sm">ACP-5 Asbestos Surveys</h3>
+                            <p class="text-xs text-gray-400">Mandatory NYC DEP inspection reports required for building permits and renovations.</p>
+                        </div>
+                        <div class="bg-brandBlack/60 border border-white/10 rounded-2xl p-4 space-y-2">
+                            <h3 class="font-bold text-white text-sm">Bulk Material Sampling</h3>
+                            <p class="text-xs text-gray-400">Rigorous testing of insulation, floor tiles, roofing, plaster, and drywall joints.</p>
+                        </div>
+                        <div class="bg-brandBlack/60 border border-white/10 rounded-2xl p-4 space-y-2">
+                            <h3 class="font-bold text-white text-sm">Air Clearance Monitoring</h3>
+                            <p class="text-xs text-gray-400">Post-abatement visual inspections and PCM/TEM air testing for legal re-occupancy.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- ================= PAGE 3: RESOURCES (Copied info from original website) ================= -->
+        <div id="page-resources" class="space-y-8 hidden">
+            <section class="bg-brandCard/95 backdrop-blur-md border border-white/10 rounded-3xl p-8 sm:p-12 shadow-2xl relative overflow-hidden space-y-4">
+                <div class="inline-flex items-center space-x-2 bg-brandPurple/20 border border-brandPurpleLight/40 text-brandPurpleLight px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
+                    <span class="w-2 h-2 rounded-full bg-brandPurpleLight animate-pulse"></span>
+                    <span>NYC Compliance Hub</span>
+                </div>
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Environmental & Legal Compliance Resources</h1>
+                <p class="text-gray-300 text-sm sm:text-base leading-relaxed max-w-3xl">
+                    Access essential regulatory guides, city agency links, and compliance documentation requirements to keep your NYC property fully aligned with municipal codes and environmental standards.
+                </p>
+            </section>
+
+            <!-- Resource Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <div class="bg-brandCard/90 border border-white/10 rounded-2xl p-6 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-brandPurple/20 text-brandPurpleLight flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-book"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">NYC Local Law 1 Compliance Guide</h3>
+                    </div>
+                    <p class="text-xs text-gray-300 leading-relaxed">
+                        A comprehensive property owner's breakdown of annual lead-based paint investigation requirements, tenant notice forms, HPD record-keeping rules, and Department of Health regulations for multiple dwellings built before 1960 (or 1970 with shared equity).
                     </p>
                 </div>
 
-                <div class="flex flex-wrap gap-4 pt-2">
-                    <a href="#contact" class="bg-brandPurple hover:bg-brandPurpleDark text-white px-6 py-3.5 rounded-xl font-bold text-sm transition shadow-xl shadow-brandPurple/25">
-                        Clear a Violation
-                    </a>
-                    <a href="#services" class="bg-white/5 hover:bg-white/10 border border-white/15 text-white px-6 py-3.5 rounded-xl font-bold text-sm transition">
-                        Explore Services
-                    </a>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- 2. TRIPLE PHOTO SHOWCASE WITH UNDERLYING ACCENT BOX -->
-        <section id="showcase" class="reveal-section space-y-8">
-            <div class="text-center max-w-2xl mx-auto space-y-2">
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-white">NYC Compliance News & Legal Updates</h2>
-                <p class="text-xs sm:text-sm text-gray-400">Certified testing and environmental inspections across all five boroughs.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">
-                
-                <!-- CARD 1: LEAD -->
-                <div class="offset-card-wrapper">
-                    <div class="offset-card-bg"></div>
-                    <div class="offset-card-content bg-brandCard border border-white/15 rounded-2xl p-6 space-y-4 flex flex-col justify-between h-full">
-                        <div class="space-y-3">
-                            <div class="h-44 rounded-xl overflow-hidden bg-brandBlack/80 relative">
-                                <img src="https://images.unsplash.com/photo-1584467735871-8e85353a8413?auto=format&fit=crop&w=600&q=80" 
-                                     alt="Lead Paint Inspection" 
-                                     class="w-full h-full object-cover opacity-90 hover:scale-105 transition duration-500" />
-                                <span class="absolute top-3 left-3 bg-brandPurple text-white text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-md">Lead Services</span>
-                            </div>
-                            <h3 class="text-lg font-bold text-white">EPA Certified Lead Inspection</h3>
-                            <p class="text-xs text-gray-400 leading-relaxed">Fast XRF lead paint testing, risk assessments, and Local Law 1 compliance clearance for residential and multi-family units.</p>
+                <div class="bg-brandCard/90 border border-white/10 rounded-2xl p-6 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-brandPurple/20 text-brandPurpleLight flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-file-invoice"></i>
                         </div>
-                        <a href="#contact" class="inline-flex items-center text-xs font-bold text-brandPurpleLight hover:text-white transition pt-2">
-                            <span>Schedule Lead Test</span> <i class="fa-solid fa-arrow-right ml-2 text-[10px]"></i>
-                        </a>
+                        <h3 class="text-lg font-bold text-white">NYC Department of Buildings (DOB) ACP-5 Info</h3>
                     </div>
+                    <p class="text-xs text-gray-300 leading-relaxed">
+                        Understanding when an ACP-5 asbestos project hazardous materials form is required before filing for interior demolition, renovation, or plumbing permits across commercial and residential buildings in the five boroughs.
+                    </p>
                 </div>
 
-                <!-- CARD 2: MOLD -->
-                <div class="offset-card-wrapper">
-                    <div class="offset-card-bg"></div>
-                    <div class="offset-card-content bg-brandCard border border-white/15 rounded-2xl p-6 space-y-4 flex flex-col justify-between h-full">
-                        <div class="space-y-3">
-                            <div class="h-44 rounded-xl overflow-hidden bg-brandBlack/80 relative">
-                                <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=600&q=80" 
-                                     alt="Mold Assessment" 
-                                     class="w-full h-full object-cover opacity-90 hover:scale-105 transition duration-500" />
-                                <span class="absolute top-3 left-3 bg-brandPurple text-white text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-md">Mold Services</span>
-                            </div>
-                            <h3 class="text-lg font-bold text-white">Mold Assessment & Air Quality</h3>
-                            <p class="text-xs text-gray-400 leading-relaxed">Comprehensive moisture mapping, indoor air sampling, and independent mold remediation protocol development.</p>
+                <div class="bg-brandCard/90 border border-white/10 rounded-2xl p-6 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-brandPurple/20 text-brandPurpleLight flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-shield-virus"></i>
                         </div>
-                        <a href="#contact" class="inline-flex items-center text-xs font-bold text-brandPurpleLight hover:text-white transition pt-2">
-                            <span>Request Mold Assessment</span> <i class="fa-solid fa-arrow-right ml-2 text-[10px]"></i>
-                        </a>
+                        <h3 class="text-lg font-bold text-white">NYC Mold Remediation Law Standards</h3>
                     </div>
+                    <p class="text-xs text-gray-300 leading-relaxed">
+                        Guidelines regarding New York City’s licensing requirements for mold assessors and remediators, containment thresholds for areas exceeding 10 square feet, and mandatory post-remediation independent clearance testing.
+                    </p>
                 </div>
 
-                <!-- CARD 3: ASBESTOS -->
-                <div class="offset-card-wrapper">
-                    <div class="offset-card-bg"></div>
-                    <div class="offset-card-content bg-brandCard border border-white/15 rounded-2xl p-6 space-y-4 flex flex-col justify-between h-full">
-                        <div class="space-y-3">
-                            <div class="h-44 rounded-xl overflow-hidden bg-brandBlack/80 relative">
-                                <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=600&q=80" 
-                                     alt="Asbestos Inspection" 
-                                     class="w-full h-full object-cover opacity-90 hover:scale-105 transition duration-500" />
-                                <span class="absolute top-3 left-3 bg-brandPurple text-white text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-md">Asbestos Services</span>
-                            </div>
-                            <h3 class="text-lg font-bold text-white">Asbestos Surveys & Clearance</h3>
-                            <p class="text-xs text-gray-400 leading-relaxed">ACP-5 asbestos surveys, pre-demolition/renovation testing, and official air monitoring for NYC building permits.</p>
+                <div class="bg-brandCard/90 border border-white/10 rounded-2xl p-6 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-brandPurple/20 text-brandPurpleLight flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-building-columns"></i>
                         </div>
-                        <a href="#contact" class="inline-flex items-center text-xs font-bold text-brandPurpleLight hover:text-white transition pt-2">
-                            <span>Book Asbestos Survey</span> <i class="fa-solid fa-arrow-right ml-2 text-[10px]"></i>
-                        </a>
+                        <h3 class="text-lg font-bold text-white">External Regulatory Portals</h3>
                     </div>
+                    <ul class="space-y-2 text-xs text-gray-300 list-disc list-inside leading-relaxed">
+                        <li><strong class="text-white">NYC HPD:</strong> Housing Preservation & Development violation records and online portals.</li>
+                        <li><strong class="text-white">NYC DEP:</strong> Department of Environmental Protection asbestos control program.</li>
+                        <li><strong class="text-white">EPA Region 2:</strong> Federal lead-based paint and toxic substances guidelines.</li>
+                    </ul>
                 </div>
 
             </div>
-        </section>
+        </div>
 
-        <!-- 3. SERVICES OVERVIEW GRID -->
-        <section id="services" class="reveal-section space-y-8">
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-4">
-                <div>
-                    <h2 class="text-2xl font-bold text-white flex items-center">
-                        <span class="w-2.5 h-6 bg-brandPurple rounded-full mr-3"></span> What We Can Do For You
-                    </h2>
-                    <p class="text-xs text-gray-400 mt-1">Full spectrum environmental inspection and regulatory management.</p>
-                </div>
-            </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                <div class="bg-brandCard/90 border border-white/10 rounded-2xl p-5 space-y-2.5 hover:border-brandPurpleLight/50 transition">
-                    <div class="w-10 h-10 rounded-xl bg-brandPurple/20 text-brandPurpleLight flex items-center justify-center font-bold text-lg">
-                        <i class="fa-solid fa-flask"></i>
-                    </div>
-                    <h3 class="font-bold text-white text-base">Testing</h3>
-                    <p class="text-xs text-gray-400 leading-relaxed">Independent lab analysis for lead, mold, and asbestos with fast turnaround.</p>
-                </div>
-
-                <div class="bg-brandCard/90 border border-white/10 rounded-2xl p-5 space-y-2.5 hover:border-brandPurpleLight/50 transition">
-                    <div class="w-10 h-10 rounded-xl bg-brandPurple/20 text-brandPurpleLight flex items-center justify-center font-bold text-lg">
-                        <i class="fa-solid fa-clipboard-check"></i>
-                    </div>
-                    <h3 class="font-bold text-white text-base">Advising</h3>
-                    <p class="text-xs text-gray-400 leading-relaxed">Strategic NYC compliance consulting to minimize liability and property risks.</p>
-                </div>
-
-                <div class="bg-brandCard/90 border border-white/10 rounded-2xl p-5 space-y-2.5 hover:border-brandPurpleLight/50 transition">
-                    <div class="w-10 h-10 rounded-xl bg-brandPurple/20 text-brandPurpleLight flex items-center justify-center font-bold text-lg">
-                        <i class="fa-solid fa-magnifying-glass font-bold"></i>
-                    </div>
-                    <h3 class="font-bold text-white text-base">Inspection</h3>
-                    <p class="text-xs text-gray-400 leading-relaxed">Onsite physical surveys, XRF analyzer sweeps, and certified field reports.</p>
-                </div>
-
-                <div class="bg-brandCard/90 border border-white/10 rounded-2xl p-5 space-y-2.5 hover:border-brandPurpleLight/50 transition">
-                    <div class="w-10 h-10 rounded-xl bg-brandPurple/20 text-brandPurpleLight flex items-center justify-center font-bold text-lg">
-                        <i class="fa-solid fa-shield-halved"></i>
-                    </div>
-                    <h3 class="font-bold text-white text-base">Abatement Support</h3>
-                    <p class="text-xs text-gray-400 leading-relaxed">Turnkey remediation management via licensed partners for violation sign-offs.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. INTAKE FORM / CONTACT SECTION -->
-        <section id="contact" class="reveal-section space-y-6">
+        <!-- ================= SHARED INTAKE FORM / CONTACT SECTION ================= -->
+        <section id="contact" class="reveal-section space-y-6 pt-6 border-t border-white/10">
             <div class="text-center max-w-xl mx-auto space-y-2">
                 <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Got a project? We've got solutions.</h2>
                 <p class="text-xs sm:text-sm text-gray-400">Fill out your details below and our compliance team will get back to you promptly.</p>
@@ -342,9 +562,68 @@
         </div>
     </footer>
 
-    <!-- INTERSECTION OBSERVER SCRIPT -->
+    <!-- CLIENT SCRIPT FOR DYNAMIC PAGE SWITCHING & ANIMATIONS -->
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Update Nav Link Visual Active States
+        function updateNavState(activeId) {
+            ['nav-home', 'nav-services', 'nav-resources', 'nav-contact'].forEach(id => {
+                const btn = document.getElementById(id);
+                if (btn) {
+                    if (id === activeId) {
+                        btn.classList.add('nav-btn-active');
+                    } else {
+                        btn.classList.remove('nav-btn-active');
+                    }
+                }
+            });
+        }
+
+        // Page Switcher Function with smooth animation trigger
+        function switchPage(pageId) {
+            const homePage = document.getElementById('page-home');
+            const servicesPage = document.getElementById('page-services');
+            const resourcesPage = document.getElementById('page-resources');
+
+            const allPages = [homePage, servicesPage, resourcesPage];
+
+            // Reset visibility & animation classes
+            allPages.forEach(p => {
+                p.classList.add('hidden');
+                p.classList.remove('tab-page-active');
+            });
+
+            let targetPage = homePage;
+            let navId = 'nav-home';
+
+            if (pageId === 'services') {
+                targetPage = servicesPage;
+                navId = 'nav-services';
+            } else if (pageId === 'resources') {
+                targetPage = resourcesPage;
+                navId = 'nav-resources';
+            }
+
+            // Remove hidden and apply active animation
+            targetPage.classList.remove('hidden');
+            // Force browser reflow to restart CSS animation
+            void targetPage.offsetWidth;
+            targetPage.classList.add('tab-page-active');
+
+            updateNavState(navId);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Scroll directly to the bottom contact intake form
+        function goToContact() {
+            switchPage('home');
+            updateNavState('nav-contact');
+            const contactSection = document.getElementById('contact');
+            if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
